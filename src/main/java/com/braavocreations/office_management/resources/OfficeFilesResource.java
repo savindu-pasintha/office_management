@@ -15,10 +15,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/officeFile")
+@CrossOrigin(origins = "*")
 public class OfficeFilesResource {
 
     @Autowired
     OfficeFilesServices officeFilesServices;
+
 
     @GetMapping("")
     public ResponseEntity<List<OfficeFiles>> getAllFiles(HttpServletRequest request) {
@@ -27,6 +29,7 @@ public class OfficeFilesResource {
         return new ResponseEntity<>(officeFiles, HttpStatus.OK);
     }
 
+
     @GetMapping("/{fileId}")
     public ResponseEntity<OfficeFiles> getFileById(HttpServletRequest request,
                                                         @PathVariable("fileId") Integer fileId) {
@@ -34,6 +37,7 @@ public class OfficeFilesResource {
         OfficeFiles officeFiles = officeFilesServices.fetchOfficeFileById(fileId);
         return new ResponseEntity<>(officeFiles, HttpStatus.OK);
     }
+
 
     @PostMapping("/add")
     public ResponseEntity<OfficeFiles> addFile(HttpServletRequest request,
@@ -47,6 +51,7 @@ public class OfficeFilesResource {
         return new ResponseEntity<>(officeFiles, HttpStatus.CREATED);
     }
 
+
     @PostMapping("/update")
     public ResponseEntity<OfficeFiles> updateFile(HttpServletRequest request,
                                                        @RequestBody Map<String, Object> fileMap) {
@@ -58,6 +63,7 @@ public class OfficeFilesResource {
         OfficeFiles officeFiles = officeFilesServices.updateOfficeFile(fileId,fileName,fileTitle,fileSender,fileCreatedDate);
         return new ResponseEntity<>(officeFiles, HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/{fileId}")
     public ResponseEntity<Map<String, Boolean>> deleteCategory(HttpServletRequest request,

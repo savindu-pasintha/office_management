@@ -15,10 +15,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/project")
+@CrossOrigin(origins = "*")
 public class ProjectResource {
 
     @Autowired
     ProjectServices projectServices;
+
 
     @GetMapping("")
     public ResponseEntity<List<Project>> getAllProjects(HttpServletRequest request) {
@@ -27,6 +29,7 @@ public class ProjectResource {
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 
+
     @GetMapping("/{projectId}")
     public ResponseEntity<Project> getProjectById(HttpServletRequest request,
                                                         @PathVariable("projectId") Integer projectId) {
@@ -34,6 +37,7 @@ public class ProjectResource {
         Project project = projectServices.fetchProjectById(projectId);
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
+
 
     @PostMapping("/add")
     public ResponseEntity<Project> addProject(HttpServletRequest request,
@@ -49,6 +53,7 @@ public class ProjectResource {
         return new ResponseEntity<>(project, HttpStatus.CREATED);
     }
 
+
     @PostMapping("/update")
     public ResponseEntity<Project> updateProject(HttpServletRequest request,
                                               @RequestBody Map<String, Object> projectMap) {
@@ -63,6 +68,7 @@ public class ProjectResource {
         Project project = projectServices.updateProject(proId,proName,proSupervisot,projectAddedDate,projectEmpId,projectContId,proSuggestor);
         return new ResponseEntity<>(project, HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/{projectId}")
     public ResponseEntity<Map<String, Boolean>> deleteProject(HttpServletRequest request,

@@ -38,6 +38,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
         try {
             return jdbcTemplate.queryForObject(SQL_FIND_BY_ID, new Object[]{emp_id},employeeRowMapper);
         }catch (Exception e){
+            System.out.println(e);
             throw new ResourceNotFoundException("Employee not found");
         }
     }
@@ -75,6 +76,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
 
 
         }catch (Exception e){
+            System.out.println(e);
             throw new BadRequestException("Invalid Request");
         }
 

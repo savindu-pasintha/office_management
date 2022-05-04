@@ -14,10 +14,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/sector")
+@CrossOrigin(origins = "*")
 public class SectorResource {
 
     @Autowired
     SectorServices sectorServices;
+
 
     @GetMapping("")
     public ResponseEntity<List<Sector>> getAllSectors(HttpServletRequest request) {
@@ -26,6 +28,7 @@ public class SectorResource {
         return new ResponseEntity<>(sectors, HttpStatus.OK);
     }
 
+
     @GetMapping("/{sectorId}")
     public ResponseEntity<Sector> getSectorById(HttpServletRequest request,
                                                         @PathVariable("sectorId") Integer sectorId) {
@@ -33,6 +36,7 @@ public class SectorResource {
         Sector sector = sectorServices.fetchSectorById(sectorId);
         return new ResponseEntity<>(sector, HttpStatus.OK);
     }
+
 
     @PostMapping("/add")
     public ResponseEntity<Sector> addSector(HttpServletRequest request,
@@ -43,6 +47,7 @@ public class SectorResource {
         return new ResponseEntity<>(sector, HttpStatus.CREATED);
     }
 
+
     @PostMapping("/update")
     public ResponseEntity<Sector> updateSector(HttpServletRequest request,
                                             @RequestBody Map<String, Object> sectorMap) {
@@ -52,6 +57,7 @@ public class SectorResource {
         Sector sector = sectorServices.updateSector(sectorId,sectorName);
         return new ResponseEntity<>(sector, HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/{sectorId}")
     public ResponseEntity<Map<String, Boolean>> deleteSector(HttpServletRequest request,

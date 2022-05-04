@@ -14,10 +14,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/department")
+@CrossOrigin(origins = "*")
 public class DepartmentResource {
 
     @Autowired
     DepartmentServices departmentServices;
+
 
     @GetMapping("")
     public ResponseEntity<List<Department>> getAllDepartments(HttpServletRequest request) {
@@ -44,6 +46,7 @@ public class DepartmentResource {
         Department department = departmentServices.addDepartment(deptName,deptAddress,deptSectorId);
         return new ResponseEntity<>(department, HttpStatus.CREATED);
     }
+
 
     @PostMapping("/update")
     public ResponseEntity<Department> updateDepartment(HttpServletRequest request,

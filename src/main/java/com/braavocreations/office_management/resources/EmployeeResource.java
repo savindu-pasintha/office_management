@@ -13,12 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/api/employee")
+@CrossOrigin(origins = "*")
 public class EmployeeResource {
 
     @Autowired
     EmployeeServices employeeServices;
+
 
     @GetMapping("")
     public ResponseEntity<List<Employee>> getAllEmployee(HttpServletRequest request) {
@@ -27,6 +30,7 @@ public class EmployeeResource {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
+
     @GetMapping("/{employeeId}")
     public ResponseEntity<Employee> getEmployeeById(HttpServletRequest request,
                                                         @PathVariable("employeeId") Integer employeeId) {
@@ -34,6 +38,7 @@ public class EmployeeResource {
         Employee employee = employeeServices.fetchEmployeeById(employeeId);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
+
 
     @PostMapping("/add")
     public ResponseEntity<Employee> addEmployee(HttpServletRequest request,
@@ -53,6 +58,7 @@ public class EmployeeResource {
         return new ResponseEntity<>(employee, HttpStatus.CREATED);
     }
 
+
     @PostMapping("/update")
     public ResponseEntity<Employee> updateEmployee(HttpServletRequest request,
                                                 @RequestBody Map<String, Object> employeeMap) {
@@ -71,6 +77,7 @@ public class EmployeeResource {
         Employee employee = employeeServices.updateEmployee(empId,empFirstName,empLastName,empEmail,empPassword,empAddress,empBirthday,empDesignation,empDepId);
         return new ResponseEntity<>(employee, HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/{employeeId}")
     public ResponseEntity<Map<String, Boolean>> deleteCategory(HttpServletRequest request,
