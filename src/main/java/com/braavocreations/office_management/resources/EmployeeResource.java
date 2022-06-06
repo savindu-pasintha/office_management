@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +32,7 @@ public class EmployeeResource {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
-
+//http:localhost:8080//api/employee/1
     @GetMapping("/{employeeId}")
     public ResponseEntity<Employee> getEmployeeById(HttpServletRequest request,
                                                         @PathVariable("employeeId") Integer employeeId) {
@@ -40,6 +42,31 @@ public class EmployeeResource {
     }
 
 
+
+//Login page acces
+
+    /**
+     * Flow
+     * 1: front ened eken en data tik all gannow
+     * 2: eken ek eml/pass ek database eke thinwd blnaw
+     * 3. thinw nm ek harid bll mokk hri ok nm ok ok nattn nh kiyl apu pront end ekt yawano
+     * @param request
+     * @param employeeMap
+     * @return
+     */
+    @PostMapping("/login")
+    public ResponseEntity<Employee> loginEmployee(HttpServletRequest request,
+                                                  @RequestBody Map<String, Object> employeeMap){
+        //step 1
+        Integer empId = Integer.parseInt((String) employeeMap.get("emp_Id"));
+        String empEmail = (String) employeeMap.get("emp_email");
+        String empPassword = (String) employeeMap.get("emp_password");
+        // databse eka access krno. it passe data row ekk thinw nm ek ehemm pass krno front end ekt
+        Employee employee = employeeServices.fetchEmployeeById(empId);// eken en data read krl return krnw
+        //checking
+        System.out.println(employee.toString());
+        return new ResponseEntity<>(employee, HttpStatus.CREATED);
+    }
     @PostMapping("/add")
     public ResponseEntity<Employee> addEmployee(HttpServletRequest request,
                                                     @RequestBody Map<String, Object> employeeMap) {
@@ -49,12 +76,13 @@ public class EmployeeResource {
         String empEmail = (String) employeeMap.get("emp_email");
         String empPassword = (String) employeeMap.get("emp_password");
         String empAddress = (String) employeeMap.get("emp_address");
-        Integer empBirthday = (Integer) employeeMap.get("employee_birthday");
+        Integer empBirthday =  Integer.parseInt((String)employeeMap.get("employee_birthday"));
         String empDesignation = (String) employeeMap.get("employee_designation");
         Integer empDepId = (Integer) employeeMap.get("employee_dept_id");
 
 
         Employee employee = employeeServices.addEmployee(empFirstName,empLastName,empEmail,empPassword,empAddress,empBirthday,empDesignation,empDepId);
+        System.out.println(employee.toString());
         return new ResponseEntity<>(employee, HttpStatus.CREATED);
     }
 

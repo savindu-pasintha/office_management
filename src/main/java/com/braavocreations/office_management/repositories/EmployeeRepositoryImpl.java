@@ -27,7 +27,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
             "WHERE emp_id = ?";
     private static final String SQL_DELETE_EMPLOYEE = "DELETE FROM employee_table WHERE emp_id = ?";
 
-
     @Override
     public List<Employee> findAll() throws ResourceNotFoundException {
         return jdbcTemplate.query(SQL_FIND_ALL, new Object[]{},employeeRowMapper);

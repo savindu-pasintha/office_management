@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -14,6 +15,7 @@ import org.springframework.web.filter.CorsFilter;
 @SpringBootApplication
 @ComponentScan
 public class OfficeManagementApplication {
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(OfficeManagementApplication.class, args);
